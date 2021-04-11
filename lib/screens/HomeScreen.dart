@@ -1,6 +1,4 @@
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_task/screens/profile.dart';
@@ -11,9 +9,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   List _category = [];
-
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/category.json');
     final data = await json.decode(response);
@@ -31,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
     readJson();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileUI2(),));
               },
-              child: Icon(Icons.supervised_user_circle_rounded, color: Colors.black,)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Icon(Icons.supervised_user_circle_rounded, color: Colors.black,),
+              )),
         ],
       ),
       body: ListView.separated(

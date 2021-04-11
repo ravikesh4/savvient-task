@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(_category[index]["item_name"]),
-            subtitle: Text(_category[index]["category_name"]),
+            subtitle: Text("Category Name: ${_category[index]["category_name"]}"),
           );
         },
       ),

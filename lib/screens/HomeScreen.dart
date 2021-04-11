@@ -10,13 +10,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List _category = [];
+  List _categoryName = [];
+
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/category.json');
     final data = await json.decode(response);
     setState(() {
       _category = data;
+      for (var index = 0; index < _category.length; index++)
+        _categoryName.add(data[index]['category_name']);
+      _categoryName = _categoryName.toSet().toList();
       _category.sort((a, b) => a["item_name"].compareTo(b["item_name"]));
-      print(_category);
+      print("category name ${_categoryName}");
     });
   }
 
@@ -31,28 +36,49 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Screen', style: TextStyle(color: Colors.black),),
+        title: Text(
+          'Home Screen',
+          style: TextStyle(color: Colors.black),
+        ),
         backgroundColor: Colors.white,
         actions: [
           InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileUI2(),));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileUI2(),
+                    ));
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Icon(Icons.supervised_user_circle_rounded, color: Colors.black,),
+                child: Icon(
+                  Icons.supervised_user_circle_rounded,
+                  color: Colors.black,
+                ),
               )),
         ],
       ),
-      body: ListView.separated(
-        itemCount: _category.length,
-        separatorBuilder: (BuildContext context, int index) => Divider(),
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(_category[index]["item_name"]),
-            subtitle: Text("Category Name: ${_category[index]["category_name"]}"),
-          );
-        },
+      body: ListView(
+
+        children: [
+          for (var ci = 0; ci < _category.length; ci++)
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: _category.length,
+              itemBuilder: (context, index) {
+                if(_categoryName[ci] == _category[index]["category_name"])
+                  return
+                  ListTile(
+                  title: Text(_category[index]["item_name"]),
+                  subtitle: Text(
+                      "${_categoryName[ci]}"),
+                );
+                return Spacer();
+              },
+            ),
+        ],
       ),
     );
   }

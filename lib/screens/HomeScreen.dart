@@ -59,45 +59,50 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
         ],
       ),
-      body: ListView(
-          children: _categoryName.map((cname) =>
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+      body: Column(
+        children: [
+          for(int index = 0; index < _categoryName.length ; index++)
+          Column(
+            children: [
+              ListTile(
+                  title: Text(_categoryName[index]),
+              ),
+              for(int i = 0; i < _category.length ; i++)
+                if(_categoryName[index] == _category[i]["category_name"])
                   ListTile(
-                    title: Text(cname),
+                    title: Text(_category[i]["item_name"]),
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemCount: _category.length,
-                    itemBuilder: (context, index) {
-                      if(cname == _category[index]["category_name"])
-                        return
-                          ListTile(
-                            title: Text(_category[index]["item_name"]),
-                          );
-                      return Spacer();
-                    },
-                  ),
-                ],
-              )).toList(),
-      ),
+            ],
+          ),
+
+        ],
+      )
     );
   }
 }
 
 
+// ListView(
+// children: _categoryName.map((cname) =>
+// Column(
+// crossAxisAlignment: CrossAxisAlignment.start,
+// children: [
+// ListTile(
+// title: Text(cname),
+// ),
 // ListView.builder(
-// physics: NeverScrollableScrollPhysics(),
 // shrinkWrap: true,
+// physics: ClampingScrollPhysics(),
 // itemCount: _category.length,
 // itemBuilder: (context, index) {
-// if(e == _category[index]["category_name"])
+// if(cname == _category[index]["category_name"])
 // return
 // ListTile(
 // title: Text(_category[index]["item_name"]),
 // );
 // return Spacer();
 // },
+// ),
+// ],
+// )).toList(),
 // ),

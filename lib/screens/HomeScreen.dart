@@ -59,20 +59,20 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
         ],
       ),
-      body: Column(
-          children: _categoryName.map((e) =>
+      body: ListView(
+          children: _categoryName.map((cname) =>
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
-                    title: Text(e),
+                    title: Text(cname),
                   ),
                   ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: _category.length,
                     itemBuilder: (context, index) {
-                      if(e == _category[index]["category_name"])
+                      if(cname == _category[index]["category_name"])
                         return
                           ListTile(
                             title: Text(_category[index]["item_name"]),
@@ -86,3 +86,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+// ListView.builder(
+// physics: NeverScrollableScrollPhysics(),
+// shrinkWrap: true,
+// itemCount: _category.length,
+// itemBuilder: (context, index) {
+// if(e == _category[index]["category_name"])
+// return
+// ListTile(
+// title: Text(_category[index]["item_name"]),
+// );
+// return Spacer();
+// },
+// ),

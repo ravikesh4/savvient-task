@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfileUI2(),
+                      builder: (context) => Profile(),
                     ));
               },
               child: Padding(
@@ -68,8 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: Text(cname),
                   ),
                   ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
                     itemCount: _category.length,
                     itemBuilder: (context, index) {
                       if(cname == _category[index]["category_name"])

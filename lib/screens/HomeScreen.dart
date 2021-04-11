@@ -60,21 +60,50 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: [
-            for(int index = 0; index < _categoryName.length ; index++)
             Column(
               children: [
-                ListTile(
-                    title: Text(_categoryName[index]),
-                ),
-                for(int i = 0; i < _category.length ; i++)
-                  if(_categoryName[index] == _category[i]["category_name"])
+                for(int index = 0; index < _categoryName.length ; index++)
+                Column(
+                  children: [
                     ListTile(
-                      title: Text(_category[i]["item_name"]),
+                        title: Text(_categoryName[index]),
                     ),
+                    for(int i = 0; i < _category.length ; i++)
+                      if(_categoryName[index] == _category[i]["category_name"])
+                        ListTile(
+                          title: Text(_category[i]["item_name"]),
+                        ),
+                  ],
+                ),
+
               ],
             ),
+            Positioned(
+              top: 0,
+              bottom: 0,
+              right: 0,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: _categoryName.map((e) => 
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          readJson();
+                          _categoryName.clear();
+                          _categoryName.add(e);
+                        });
+                      },
+                      child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Text(e, style: TextStyle(
+                            fontSize: 18, color: Colors.blue
+                          ),)),
+                    )).toList(),
+              ),
+            )
 
           ],
         ),

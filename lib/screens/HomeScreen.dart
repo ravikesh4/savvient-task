@@ -43,23 +43,16 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileUI2(),));
               },
-              child: Icon(Icons.supervised_user_circle_rounded, color: Colors.black,))
+              child: Icon(Icons.supervised_user_circle_rounded, color: Colors.black,)),
         ],
       ),
-      // body: Column(
-      //   children: [
-      //     for( var index = 0 ; index < _category.length; index++ )
-      //     Container(
-      //       child: Text(_category[index]["item_name"]),
-      //     ),
-      //   ],
-      // ),
       body: ListView.separated(
         itemCount: _category.length,
         separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(_category[index]["item_name"]),
+            subtitle: Text(_category[index]["category_name"]),
           );
         },
       ),

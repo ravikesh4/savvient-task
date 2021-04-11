@@ -59,26 +59,29 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
         ],
       ),
-      body: ListView(
-
-        children: [
-          for (var ci = 0; ci < _category.length; ci++)
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: _category.length,
-              itemBuilder: (context, index) {
-                if(_categoryName[ci] == _category[index]["category_name"])
-                  return
+      body: Column(
+          children: _categoryName.map((e) =>
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   ListTile(
-                  title: Text(_category[index]["item_name"]),
-                  subtitle: Text(
-                      "${_categoryName[ci]}"),
-                );
-                return Spacer();
-              },
-            ),
-        ],
+                    title: Text(e),
+                  ),
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: _category.length,
+                    itemBuilder: (context, index) {
+                      if(e == _category[index]["category_name"])
+                        return
+                          ListTile(
+                            title: Text(_category[index]["item_name"]),
+                          );
+                      return Spacer();
+                    },
+                  ),
+                ],
+              )).toList(),
       ),
     );
   }

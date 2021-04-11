@@ -59,23 +59,25 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
         ],
       ),
-      body: Column(
-        children: [
-          for(int index = 0; index < _categoryName.length ; index++)
-          Column(
-            children: [
-              ListTile(
-                  title: Text(_categoryName[index]),
-              ),
-              for(int i = 0; i < _category.length ; i++)
-                if(_categoryName[index] == _category[i]["category_name"])
-                  ListTile(
-                    title: Text(_category[i]["item_name"]),
-                  ),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            for(int index = 0; index < _categoryName.length ; index++)
+            Column(
+              children: [
+                ListTile(
+                    title: Text(_categoryName[index]),
+                ),
+                for(int i = 0; i < _category.length ; i++)
+                  if(_categoryName[index] == _category[i]["category_name"])
+                    ListTile(
+                      title: Text(_category[i]["item_name"]),
+                    ),
+              ],
+            ),
 
-        ],
+          ],
+        ),
       )
     );
   }
